@@ -7,7 +7,6 @@ pipeline {
         stage('build image') {
             agent { label 'docker'}
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/byassine/simplephp.git']])
                 script{
                     def scmVars = checkout scm
                     stash name: 'source', includes: '**/*'
