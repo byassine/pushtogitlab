@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  namespace: jenkins
+spec:
+  selector:
+    matchLabels:
+      run: my-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: my-app
+    spec:
+      containers:
+      - name: nv-application
+        image: yassinebd/testphp:v1.0.5
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nv-app-svc
+  namespace: jenkins
+  labels:
+    run: my-app
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: my-app
