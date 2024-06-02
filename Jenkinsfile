@@ -9,7 +9,6 @@ pipeline {
             steps {
                 script{
                     def scmVars = checkout scm
-                    git branch: 'main', changelog: false, poll: false, url: 'https://github.com/byassine/simplephp.git'
                     stash name: 'source', includes: '**/*'
                     sh 'ls -altr'
                     sh 'docker build -t yassinebd/testphp:v1.1.9 .'
